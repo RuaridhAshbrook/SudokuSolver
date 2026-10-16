@@ -1,13 +1,18 @@
 import csv
 
 def retrieveSudoku():
-    filepath = input("What is the filepath for the sudoku - ")
-    sudoku = csv.reader(filepath)
+    sudoku = []
+    filepath = "Sudokus/" + input("What is the filename for the sudoku puzzle - ") + '.csv'
+    with open(filepath, 'r') as file:
+        csvFile = csv.reader(file, delimiter=',')
+        for row in csvFile:
+            sudoku.append(row)
     return sudoku
 
 def solver(sudoku, domain):
     # TODO: implement solver
-    pass
+    for row in sudoku:
+        print(row)
 
 
 def main():
