@@ -7,7 +7,7 @@ Variables:
 
 List of available squares in the grid  
 
-S={ (x0,y0), (x1,y0), (x2,y0), (x3,y0), (x4,y0), (x5,y0), (x6,y0), (x7,y0), (x8,y0),  
+Xi={ (x0,y0), (x1,y0), (x2,y0), (x3,y0), (x4,y0), (x5,y0), (x6,y0), (x7,y0), (x8,y0),  
 
     (x0,y1), (x1,y1), (x2,y1), (x3,y1), (x4,y1), (x5,y1), (x6,y1), (x7,y1), (x8,y1), 
 
@@ -31,12 +31,12 @@ Di = {1,2,3,4,5,6,7,8,9}
 
 Constraints: 
 
-    There must be no duplicate integers in the same row in the grid 
+    C1: There must be no duplicate integers in the same row in the grid 
 
-    There must be no duplicate integers in the same column in the grid 
+    C2: There must be no duplicate integers in the same column in the grid 
 
-    Sub grids must consist of a 3x3 grid of value positions
+    C3: Sub grids must consist of a 3x3 grid of value positions
 
-    There must be 9 sub grids in a 3x3 formation
+    C4: There must be 9 sub grids in a 3x3 formation
 
-    There must be no duplicate integer in the same sub grid within the grid 
+    C5: There must be no duplicate integer in the same sub grid within the grid 
