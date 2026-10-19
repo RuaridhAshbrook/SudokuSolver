@@ -16,12 +16,7 @@ def retrieveSudoku():
             sudoku[x][y] = int(sudoku[x][y])
     return sudoku
 
-"""
-def calcDomains(sudoku, domain):
-    for row in sudoku:
-        for count in range(0, 9):
-         
-"""
+
 def check(sudoku, x, y, val):
     for i in range(9):
         if sudoku[x][i] == val:
@@ -56,11 +51,6 @@ def solver(sudoku, domain, x, y):
             return False
         else:
             return solver(sudoku, domain, x, y+1)
-   
-
-
-
-        
 
 def main():
     domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]        # defines the domain for the sudoku in main so it can be passed as a parameter into the solver function
@@ -69,7 +59,7 @@ def main():
     if solver(sudoku, domain, 0, 0):
         print("Sudoku successfuly solved")
     else:
-        "Sudoku is not solvable"
+        print("Sudoku is not solvable")
 
 main()
 
