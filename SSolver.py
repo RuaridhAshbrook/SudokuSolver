@@ -5,7 +5,7 @@ stateVal = []
 
 def retrieveSudoku():
     sudoku = []     # initialise the variable sudoku so each row of the sudoku can be appended as each row is iterated over
-    filepath = "Sudokus/" + input("What is the filename for the sudoku puzzle - ") + '.csv'     # get the filepath for the sudoku, all sudoku must be stored in the folder
+    filepath = "Sudokus/" + sys.argv[1] + '.csv'     # get the filepath for the sudoku, all sudoku must be stored in the folder
     with open(filepath, 'r') as file:       # opens the file and reads it into the array sudoku
         csvFile = csv.reader(file, delimiter=',')
         for row in csvFile:
