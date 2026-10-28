@@ -7,11 +7,22 @@ def retrieveSudoku():
     with open(filepath, 'r') as file:       # opens the file and reads it into the array sudoku
         csvFile = csv.reader(file, delimiter=',')
         for row in csvFile:
+            if len(row) != 9:       #if a row has more or less than 9 values we know it cannot be valid so end
+                sudoku = None
+                return sudoku
             sudoku.append(row)
+        if csvFile.line_num != 9:   # after iterating through the rows our line number is 9 if it is a valid sudoku, so if it isnt we know the sudoku inputted does not have 9 rows
+            sudoku = None
+            return sudoku
     file.close()
     for x in range(9):              #this is to cast every value in the sudoku from a string to an integer so it can be used in the solver function
         for y in range(9):
-            sudoku[x][y] = int(sudoku[x][y])
+            try:                    # this is so when we cast the value to an int if it isnt a number we catch an exception so it doesnt error out
+                sudoku[x][y] = int(sudoku[x][y])
+            except ValueError:
+                sudoku = -1
+                return sudoku
+
     return sudoku
 
 def initDomains(sudoku, domainDict):        # this function is used to set the initial state of the domains for each cell before starting the solve. this is needed for a valid forward checking algorithm to work
@@ -83,6 +94,12 @@ def solver(sudoku, domainDict, x, y):
 def main():
     domainDict = {(p, vs): list(range(1, 10)) for p in range(9) for vs in range(9)}     # initially I manually defined every domain at each cell taking up 83 lines of code then I found this method to define dictionaries on geeksforgeeks: https://www.geeksforgeeks.org/python/create-dynamic-dictionary-in-python/
     sudoku = retrieveSudoku()       # initialises a 2D array sudoku to store the initial sudoku grid, this then is passed as a parameter into the solver function
+    if sudoku is None:
+        print("Sudoku is invalid")
+        return
+    elif sudoku == -1:
+        print("value in sudoku is not a number")
+        return
     domainDict = initDomains(sudoku, domainDict)
     if domainDict is None:
         print("Sudoku is not solvable")
