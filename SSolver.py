@@ -1,5 +1,7 @@
 import csv
 import sys
+from timeit import default_timer as timer
+backtracks = 0
 
 def retrieveSudoku():
     sudoku = []                     # initialise the variable sudoku so each row of the sudoku can be appended as each row is iterated over
@@ -69,6 +71,7 @@ def updateDomains(sudoku, domainDict, x, y, val, removed):      # this is the fu
 
 #I decided to use a recursive function to implement the solver, this is because it allows me to easily backtrack when the is an invalid value
 def solver(sudoku, domainDict, x, y):
+    global backtracks
     if y > 8:                       #we need to check if we have reached the end of the column in which case reset the position along the column and increment the row
         x += 1
         y = 0
@@ -86,12 +89,14 @@ def solver(sudoku, domainDict, x, y):
                     return True
             for cell, val in removed:   # this is where we backtrack the values we have removed from the "instance" domains if it is an invalid number in the current cell
                 domainDict[cell].append(val)
+            backtracks += 1
             sudoku[x][y] = 0        #if the value is not valid, then we need to reset the value back to 0, "empty", otherwise on the next iteration it will pass over the cell and we wont have a valid sudoku anymore
         return False        #this returns false when the check returns false so we know its not a valid value and it will try another one
     else:                   #this moves onto the next cell when we come across a cel which already has a value in it 
         return solver(sudoku, domainDict, x, y+1)
 
 def main():
+    start = timer()
     domainDict = {(p, vs): list(range(1, 10)) for p in range(9) for vs in range(9)}     # initially I manually defined every domain at each cell taking up 83 lines of code then I found this method to define dictionaries on geeksforgeeks: https://www.geeksforgeeks.org/python/create-dynamic-dictionary-in-python/
     sudoku = retrieveSudoku()       # initialises a 2D array sudoku to store the initial sudoku grid, this then is passed as a parameter into the solver function
     if sudoku is None:
@@ -105,7 +110,10 @@ def main():
         print("Sudoku is not solvable")
         return
     if solver(sudoku, domainDict, 0, 0):        #this is our final message which prints to the terminal telling the user if the sudoku was solved or if it is an invalid sudoku
+        end = timer()
         print("Sudoku successfuly solved")
+        print("Backtracks: ", backtracks)
+        print(end - start)
     else:
         print("Sudoku is not solvable")
 
