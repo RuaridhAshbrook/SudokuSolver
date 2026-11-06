@@ -1,0 +1,6 @@
+numpy
+opencv-python
+pillow
+torch
+torchvision
+# tkinter ships with Python on Windows/macOS. On Debian/Ubuntu: sudo apt install python3-tk

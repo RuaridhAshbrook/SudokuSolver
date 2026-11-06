@@ -40,3 +40,5 @@ Constraints:
     C4: There must be 9 sub grids in a 3x3 formation
 
     C5: There must be no duplicate integer in the same sub grid within the grid 
+
+I have then used openCV to find a grid, flatten it, even out the lighting and invert dark-mode images. I then have a CNN cell classifier containing 10 classes blank and 1-9. 
